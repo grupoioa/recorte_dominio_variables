@@ -42,7 +42,7 @@ Para ejecutar el script se tiene que hacer lo siguiente desde una línea de coma
 
  ``time srun -N1 -n1 --exclusive bash recortes.sh $ANIO``  
 
- ,lo que hace `srun -N1 -n1 --exclusive` es ejecutar el script de manera exclusiva en un core del cluster.
+ , lo que hace `srun -N1 -n1 --exclusive` es ejecutar el script de manera exclusiva en un core del cluster.
  
  Hay que aclarar que las lineas que empiezan con `#SBATCH` no son comentarios, estas variables nos permiten especificar  
  la manera en que *SLURM* administrará nuestros procesos. 
@@ -51,28 +51,29 @@ Para ejecutar el script se tiene que hacer lo siguiente desde una línea de coma
  Es importante mencionar que orden de los valores en los arreglos *PREFIXS* y *VARS* estan relacionados  
  
  ```
-  PREFIXS=("wrfout_c1h_d01_" "wrfout_c3h_d01_" "wrfout_c15d_d01_" "wrfout_c_anio_d01_")  
-    
-  VARS=("-v P,Q2,T2,PSFC,U10,V10,XTIME,TSK,RAINC,RAINNC,SWDOWN,GLW,OLR,ALBEDO,HFX,QFX,LH,SST" "-v U,V,W,PH,T,XTIME,QVAPOR,CLDFRA" "-v XLAT,XLONG,LU_INDEX,ZNU,ZNW,ACHFX,ACLHF,ALBEDO,CLDFRA,EMISS,GLW,HFX,HGT,LAKEMASK,LANDMASK,LH,OLR,P,PB,PBLH,PHB,PSFC,Q2,QFX,QRAIN,QVAPOR,RAINC,RAINNC,SMOIS,SST,SSTSK,SWDOWN,T,T00,T2,TSK,U10,UST,V10,XLAT_U,XLAT_V,XLONG,XLONG_U,XLONG_V,XTIME" "")  
- ```
+ PREFIXS=("wrfout_c1h_d01_" "wrfout_c3h_d01_" "wrfout_c15d_d01_" "wrfout_c_anio_d01_")  
+ 
+ VARS=("-v P,Q2,T2,PSFC,U10,V10,XTIME,TSK,RAINC,RAINNC,SWDOWN,GLW,OLR,ALBEDO,HFX,QFX,LH,SST" "-v U,V,W,PH,T,XTIME,QVAPOR,CLDFRA" "-v XLAT,XLONG,LU_INDEX,ZNU,ZNW,ACHFX,ACLHF,ALBEDO,CLDFRA,EMISS,GLW,HFX,HGT,LAKEMASK,LANDMASK,LH,OLR,P,PB,PBLH,PHB,PSFC,Q2,QFX,QRAIN,QVAPOR,RAINC,RAINNC,SMOIS,SST,SSTSK,SWDOWN,T,T00,T2,TSK,U10,UST,V10,XLAT_U,XLAT_V,XLONG,XLONG_U,XLONG_V,XTIME" "")
+ ```  
+ 
  , y esta relación está determinada por la posición de los valores en el arreglo, es decir :
     
-    * al prefijo **wrfout_c1h_d01_** le corresponde las variables : P, Q2, T2, PSFC, U10, V10, XTIME, TSK, RAINC, RAINNC,  
+   * al prefijo **wrfout_c1h_d01_** le corresponde las variables : P, Q2, T2, PSFC, U10, V10, XTIME, TSK, RAINC, RAINNC,  
       SWDOWN, GLW, OLR, ALBEDO, HFX, QFX, LH, SST.  
-    * al prefijo **wrfout_c3h_d01_** le corresponde las variables : U, V, W, PH, T, XTIME, QVAPOR, CLDFRA  
-    * al prefijo **wrfout_c15d_d01_** le corresponde las variables : XLAT, XLONG, LU_INDEX, ZNU, ZNW, ACHFX, ACLHF, ALBEDO,  
-      CLDFRA,EMISS, GLW, HFX, HGT, LAKEMASK, LANDMASK, LH, OLR, P, PB, PBLH, PHB, PSFC, Q2, QFX, QRAIN, QVAPOR, RAINC, RAINNC,  
-      SMOIS, SST, SSTSK, SWDOWN, T, T00, T2, TSK, U10, UST, V10, XLAT_U, XLAT_V, XLONG, XLONG_U, XLONG_V, XTIME.
-    * al prefijo **wrfout_c_anio_d01_** se relaciona con la cadena vacia *""* lo que significa que tomara encuenta todas las  
-      variables que se encuentren en el netCDF.
+   * al prefijo **wrfout_c3h_d01_** le corresponde las variables : U, V, W, PH, T, XTIME, QVAPOR, CLDFRA  
+   * al prefijo **wrfout_c15d_d01_** le corresponde las variables : XLAT, XLONG, LU_INDEX, ZNU, ZNW, ACHFX, ACLHF, ALBEDO,  
+     CLDFRA,EMISS, GLW, HFX, HGT, LAKEMASK, LANDMASK, LH, OLR, P, PB, PBLH, PHB, PSFC, Q2, QFX, QRAIN, QVAPOR, RAINC,  
+     RAINNC, SMOIS, SST, SSTSK, SWDOWN, T, T00, T2, TSK, U10, UST, V10, XLAT_U, XLAT_V, XLONG, XLONG_U, XLONG_V, XTIME.  
+   * al prefijo **wrfout_c_anio_d01_** se relaciona con la cadena vacia *""* lo que significa que tomara encuenta todas  
+     las variables que se encuentren en el netCDF.
 
  Ahora en el caso de las variables *west*, *east*, *south* y *north*, estas son los indices o limites que se consideran para  
  hacer el recorte del dominio.  
     
-    * **west** es el índice sobre el eje X más a la izquierda.  
-    * **east** es el indice sobre el eje X más a la derecha.  
-    * **south** es el índice sobre el eje Y más hacia abajo.  
-    * **north** es el indice sobre el eje Y más hacia arriba.  
+   * **west** es el índice sobre el eje X más a la izquierda.  
+   * **east** es el indice sobre el eje X más a la derecha.  
+   * **south** es el índice sobre el eje Y más hacia abajo.  
+   * **north** es el indice sobre el eje Y más hacia arriba.  
 
  El ciclo `for` se realiza 4 veces desde el índice 0 al 3 ya que es la cantidad de elementos que hay en tanto ene l arreglo  
  *PREFIXS* como en el arreglo *VARS*,  
@@ -109,4 +110,3 @@ Este proyecto está licenciado bajo la licencia MIT; consulte el archivo [LICENS
 [4]: https://semver.org/lang/es/
 [5]: https://github.com/grupoioa/recorte_dominio_variables/tags
 [6]: https://github.com/rmedina09
-[7]: https://github.com/
