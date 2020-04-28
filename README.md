@@ -95,7 +95,7 @@ Para ejecutar el script se tiene que hacer lo siguiente desde una línea de coma
 ## Versionando  
 Usamos [SemVer][4] para versionar. Para las versiones disponibles, consulte [las etiquetas en este repositorio][5].
 
-## Autores
+## Autor
 * **Raúl Medina Peña** - [Github][6]
 
 ## Licencia
