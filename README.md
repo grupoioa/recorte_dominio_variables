@@ -24,7 +24,7 @@ en el archivo `recortes.sh` las siguientes variables :
 ## Probando
 Para ejecutar el script se tiene que hacer lo siguiente desde una línea de comando:  
 
-   `user@:~$ SBATCH run_recortes.sh`  
+   `user@:~$ sbatch run_recortes.sh`  
 
  #### Descripción del script `` run_recortes.sh ``
  Este script manda a ejecutar el script `recortes.sh` 39 veces de forma paralela en el cluster, este número se determina por  
@@ -53,7 +53,7 @@ Para ejecutar el script se tiene que hacer lo siguiente desde una línea de coma
  ```
  PREFIXS=("wrfout_c1h_d01_" "wrfout_c3h_d01_" "wrfout_c15d_d01_" "wrfout_c_anio_d01_")  
  
- VARS=("-v P,Q2,T2,PSFC,U10,V10,XTIME,TSK,RAINC,RAINNC,SWDOWN,GLW,OLR,ALBEDO,HFX,QFX,LH,SST" "-v U,V,W,PH,T,XTIME,QVAPOR,CLDFRA" "-v XLAT,XLONG,LU_INDEX,ZNU,ZNW,ACHFX,ACLHF,ALBEDO,CLDFRA,EMISS,GLW,HFX,HGT,LAKEMASK,LANDMASK,LH,OLR,P,PB,PBLH,PHB,PSFC,Q2,QFX,QRAIN,QVAPOR,RAINC,RAINNC,SMOIS,SST,SSTSK,SWDOWN,T,T00,T2,TSK,U10,UST,V10,XLAT_U,XLAT_V,XLONG,XLONG_U,XLONG_V,XTIME" "")
+ VARS=("-v Times,P,Q2,T2,PSFC,U10,V10,XTIME,TSK,RAINC,RAINNC,SWDOWN,GLW,OLR,ALBEDO,HFX,QFX,LH,SST" "-v Times,U,V,W,PH,T,XTIME,QVAPOR,CLDFRA" "-v Times,XLAT,XLONG,LU_INDEX,ZNU,ZNW,ACHFX,ACLHF,ALBEDO,CLDFRA,EMISS,GLW,HFX,HGT,LAKEMASK,LANDMASK,LH,OLR,P,PB,PBLH,PHB,PSFC,Q2,QFX,QRAIN,QVAPOR,RAINC,RAINNC,SMOIS,SST,SSTSK,SWDOWN,T,T00,T2,TSK,U10,UST,V10,XLAT_U,XLAT_V,XLONG,XLONG_U,XLONG_V,XTIME" "")
  ```  
  
  , y esta relación está determinada por la posición de los valores en el arreglo, es decir :
@@ -70,10 +70,10 @@ Para ejecutar el script se tiene que hacer lo siguiente desde una línea de coma
  Ahora en el caso de las variables *west*, *east*, *south* y *north*, estas son los indices o limites que se consideran para  
  hacer el recorte del dominio.  
     
-   * **west** es el índice sobre el eje X más a la izquierda.  
-   * **east** es el indice sobre el eje X más a la derecha.  
-   * **south** es el índice sobre el eje Y más hacia abajo.  
-   * **north** es el indice sobre el eje Y más hacia arriba.  
+   * **west** y **west_stag** son los índices sobre el eje X más a la izquierda.  
+   * **east** y **east_stag** son los indices sobre el eje X más a la derecha.  
+   * **south** y **south_stag** son los índices sobre el eje Y más hacia abajo.  
+   * **north** y **north_stag** son los indices sobre el eje Y más hacia arriba.  
 
  El ciclo `for` se realiza 4 veces desde el índice 0 al 3 ya que es la cantidad de elementos que hay en tanto ene l arreglo  
  *PREFIXS* como en el arreglo *VARS*,  
@@ -84,8 +84,8 @@ Para ejecutar el script se tiene que hacer lo siguiente desde una línea de coma
 
  ```
   for netCDF in $prefix*;do  
-    time ncrcat -dwest_east,$west,$east -dsouth_north,$south,$north $var $netCDF -o $salida/$netCDF.nc  		
-	done
+    time ncrcat -dwest_east,$west,$east -dsouth_north,$south,$north -dwest_east_stag,$west_stag,$east_stag -dsouth_north_stag,$south_stag,$north_stag $var $netCDF -o $salida/$netCDF.nc
+  done
  ```  
 
 ## Construido con
