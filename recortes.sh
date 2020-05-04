@@ -31,14 +31,14 @@ VARS=("-v Times,P,Q2,T2,PSFC,U10,V10,XTIME,TSK,RAINC,RAINNC,SWDOWN,GLW,OLR,ALBED
 west=313
 east=533
 
-west_stag=312
+west_stag=313
 east_stag=534
 
 #Indices south-north (direccion sur-norte) del dominio a recortar
 south=121
 north=307
 
-south_stag=120
+south_stag=121
 north_stag=308
 
 #Iteramos sobre la cantidad de prefijos que existen en el arreglo 'PREFIXS'   
